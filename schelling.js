@@ -11,6 +11,10 @@ class schellingsModel {
         input1.addEventListener("input", () => {
             this.dimension = input1.value;
        });
+       this.grid = new Array(this.dimension);
+       for () {
+           
+       }
 
        //reads in the similarity threshold input
         this.similarityThreshhold = 0.35;
