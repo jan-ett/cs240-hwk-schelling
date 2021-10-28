@@ -3,30 +3,29 @@
  * @author Janett
  */
 
-class schellingsModel {
-    constructor() {
+
         //reads in the dimension input
+        let dimension = 50;
         let input1 = document.querySelector("#dimension");
         input1.addEventListener("input", () => {
-            this.dimension = input1.value;
-            this.grid = new Array(this.dimension);
-            for (let i = 0; i < this.dimension; i++){
-                this.grid[i] = new Array(this.dimension);
-            }
-            console.log(this.dimension);
-            console.log(this.grid);
+        dimension = input1.value;
+            console.log(dimension);
+            convertToTable();
+
        });
 
        //reads in the similarity threshold input
+       let similarityThreshhold = 0.35;
         let input2 = document.querySelector("#threshold");
         input2.addEventListener("input", () => {
-            this.similarityThreshhold = input2.value;
+            similarityThreshhold = input2.value;
        });
 
        //reads in the vacant cell input
+       let vacantCells = 0.05;
         let input3 = document.querySelector("#vacantRatio");
         input3.addEventListener("input", () => {
-            this.vacantCells = input3.value;
+            vacantCells = input3.value;
        });
 
        //reads in the population split input
@@ -46,11 +45,31 @@ class schellingsModel {
         input6.addEventListener("input", () => {
             this.popYwoColor = input6.value;
        });
-    }
 
-    convertToTable() {
+    let grid = new Array(dimension);
+    function convertToTable() {
         //take from field once created
+        let table = document.querySelector("#board");
+        grid = new Array(dimension);
+        table.innerHTML = "";
+        for (let i = 0; i < dimension; i++) {
+            let tableRow = document.createElement("tr");
+            grid[i] = new Array(dimension);
+            for (let j = 0; j < dimension; j++) {
+                let tableData = document.createElement("td");
+                tableRow.appendChild(tableData);
+                grid[i][j] = tableData;
+            }
+            table.appendChild(tableRow);
+        }
+        console.log(grid);
     }
-}
 
-const tester = new schellingsModel();
+    //math.floor to convert into int
+
+
+
+    convertToTable();
+
+//const tester = new schellingsModel();
+//tester.populateGrid();
