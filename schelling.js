@@ -9,7 +9,6 @@ let dimension = 50;
 let input1 = document.querySelector("#dimension");
 input1.addEventListener("input", () => {
     dimension = input1.value;
-    console.log(dimension);
     convertToTable();
     colorCells();
 
@@ -51,9 +50,11 @@ input6.addEventListener("input", () => {
 });
 
 let grid = new Array(dimension);
+let list = new Array(); //cells with no content
 function convertToTable() {
     let table = document.querySelector("#board");
     grid = new Array(dimension);
+    list = new Array();
     table.innerHTML = "";
     for (let i = 0; i < dimension; i++) {
         let tableRow = document.createElement("tr");
@@ -62,20 +63,52 @@ function convertToTable() {
             let tableData = document.createElement("td");
             tableRow.appendChild(tableData);
             grid[i][j] = tableData;
+            list.push([i,j]);
         }
         table.appendChild(tableRow);
     }
-    console.log(grid);
+    //console.log(grid);
 }
 
 convertToTable();
 
+
 function colorCells() {
     let vacantNumCells = parseInt((dimension*dimension)*vacantCells);
+    let popX = ;
+    let popY = ;
+    //vacant cells
     for(let i = 0; i < vacantNumCells; i++) {
-        let x = Math.floor(Math.random()*dimension);
-        let y = Math.floor(Math.random()*dimension);
-        grid[x][y] = document.createElement("id", 0);
+        let listItemNum = Math.floor(Math.random()*list.length);
+        let listItem = list[listItemNum];
+        let x = listItem[0];
+        let y = listItem[1];
+        console.log(grid[x][y]);
+        grid[x][y].id = "0";
+        grid[x][y].style.backgroundColor = "#FFFF"
+        list.splice(listItemNum,1);
+    }
+    //pop one
+    for(let i = 0; i < vacantNumCells; i++) {
+        let listItemNum = Math.floor(Math.random()*list.length);
+        let listItem = list[listItemNum];
+        let x = listItem[0];
+        let y = listItem[1];
+        console.log(grid[x][y]);
+        grid[x][y].id = "1";
+        grid[x][y].style.backgroundColor = "#006EFF"
+        list.splice(listItemNum,1);
+    }
+    //pop two
+    for(let i = 0; i < vacantNumCells; i++) {
+        let listItemNum = Math.floor(Math.random()*list.length);
+        let listItem = list[listItemNum];
+        let x = listItem[0];
+        let y = listItem[1];
+        console.log(grid[x][y]);
+        grid[x][y].id = "2";
+        grid[x][y].style.backgroundColor = "#FF7B00"
+        list.splice(listItemNum,1);
     }
 }
 
