@@ -43,10 +43,11 @@ input5.addEventListener("input", () => {
 });
 
 //reads in the population Y color
-let popYColor
+let popYColor = "#FF7B00";
 let input6 = document.querySelector("#popYcolor");
 input6.addEventListener("input", () => {
     popYColor = input6.value;
+    console.log(popYColor);
 });
 
 let grid = new Array(dimension);
@@ -75,41 +76,37 @@ convertToTable();
 
 function colorCells() {
     let vacantNumCells = parseInt((dimension*dimension)*vacantCells);
-    let popX = ;
-    let popY = ;
+    let popXCells = parseInt(((dimension*dimension)*popSplit)-vacantNumCells);
+    let popYCells = parseInt(((dimension*dimension)*(1-popSplit))-vacantNumCells);
     //vacant cells
     for(let i = 0; i < vacantNumCells; i++) {
         let listItemNum = Math.floor(Math.random()*list.length);
         let listItem = list[listItemNum];
         let x = listItem[0];
         let y = listItem[1];
-        console.log(grid[x][y]);
         grid[x][y].id = "0";
         grid[x][y].style.backgroundColor = "#FFFF"
         list.splice(listItemNum,1);
     }
     //pop one
-    for(let i = 0; i < vacantNumCells; i++) {
+    for(let i = 0; i < popXCells; i++) {
         let listItemNum = Math.floor(Math.random()*list.length);
         let listItem = list[listItemNum];
         let x = listItem[0];
         let y = listItem[1];
-        console.log(grid[x][y]);
         grid[x][y].id = "1";
-        grid[x][y].style.backgroundColor = "#006EFF"
+        grid[x][y].style.backgroundColor = popXColor; //need to fix
         list.splice(listItemNum,1);
     }
     //pop two
-    for(let i = 0; i < vacantNumCells; i++) {
+    for(let i = 0; i < popYCells; i++) {
         let listItemNum = Math.floor(Math.random()*list.length);
         let listItem = list[listItemNum];
         let x = listItem[0];
         let y = listItem[1];
-        console.log(grid[x][y]);
         grid[x][y].id = "2";
-        grid[x][y].style.backgroundColor = "#FF7B00"
+        grid[x][y].style.backgroundColor = popYColor; //need to fix
         list.splice(listItemNum,1);
     }
 }
-
 colorCells();
