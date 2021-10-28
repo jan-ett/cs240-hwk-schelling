@@ -11,6 +11,7 @@ input1.addEventListener("input", () => {
     dimension = input1.value;
     console.log(dimension);
     convertToTable();
+    colorCells();
 
 });
 
@@ -67,11 +68,15 @@ function convertToTable() {
     console.log(grid);
 }
 
-    //math.floor to convert into int
-
-
-
 convertToTable();
 
-//const tester = new schellingsModel();
-//tester.populateGrid();
+function colorCells() {
+    let vacantNumCells = parseInt((dimension*dimension)*vacantCells);
+    for(let i = 0; i < vacantNumCells; i++) {
+        let x = Math.floor(Math.random()*dimension);
+        let y = Math.floor(Math.random()*dimension);
+        grid[x][y] = document.createElement("id", 0);
+    }
+}
+
+colorCells();
