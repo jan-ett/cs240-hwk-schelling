@@ -26,6 +26,8 @@ let vacantCells = 0.05;
 let input3 = document.querySelector("#vacantRatio");
 input3.addEventListener("input", () => {
     vacantCells = input3.value;
+    convertToTable();
+    colorCells();
 });
 
 //reads in the population split input
@@ -33,21 +35,23 @@ let popSplit = 0.5;
 let input4 = document.querySelector("#popRatio");
 input4.addEventListener("input", () => {
     popSplit = input4.value;
+    convertToTable();
+    colorCells();
 });
 
 //reads in the population X color
 let popXColor = "#006EFF";
 let input5 = document.querySelector("#popXcolor");
 input5.addEventListener("input", () => {
-    popXColor = input5.value;
+    popXColor = "\"" + input5.value + "\"";
 });
 
 //reads in the population Y color
 let popYColor = "#FF7B00";
 let input6 = document.querySelector("#popYcolor");
 input6.addEventListener("input", () => {
-    popYColor = input6.value;
-    console.log(popYColor);
+    popYColor = "\"" + input6.value + "\"";
+
 });
 
 let grid = new Array(dimension);
@@ -95,7 +99,7 @@ function colorCells() {
         let x = listItem[0];
         let y = listItem[1];
         grid[x][y].id = "1";
-        grid[x][y].style.backgroundColor = popXColor; //need to fix
+        grid[x][y].style.backgroundColor = popXColor;
         list.splice(listItemNum,1);
     }
     //pop two
@@ -105,7 +109,7 @@ function colorCells() {
         let x = listItem[0];
         let y = listItem[1];
         grid[x][y].id = "2";
-        grid[x][y].style.backgroundColor = popYColor; //need to fix
+        grid[x][y].style.backgroundColor = popYColor;
         list.splice(listItemNum,1);
     }
 }
