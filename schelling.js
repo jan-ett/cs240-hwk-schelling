@@ -59,6 +59,14 @@ input6.addEventListener("input", () => {
 
 });
 
+//randomizes the cells when the randomize button is clicked
+let randomize = document.querySelector("#randomize");
+randomize.addEventListener("click", () => {
+    convertToTable();
+    populateGrid();
+    colorCells();
+});
+
 /**
  * Converts the given javascript grid into an HTML table.
  * Attaches a "td" tag to each cells to be able to set id when populating the cells
