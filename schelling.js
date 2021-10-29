@@ -9,9 +9,9 @@ let dimension = 50;
 let input1 = document.querySelector("#dimension");
 input1.addEventListener("input", () => {
     dimension = input1.value;
-    convertToTable();
-    populateGrid();
-    colorCells();
+    convertToTable(); //creates grid with given dimension
+    populateGrid(); //adds id tags to each cell randomly
+    colorCells(); //gives colors to each cells depending on given id tag
 
 });
 
@@ -27,9 +27,9 @@ let vacantCells = 0.05;
 let input3 = document.querySelector("#vacantRatio");
 input3.addEventListener("input", () => {
     vacantCells = input3.value;
-    convertToTable();
-    populateGrid();
-    colorCells();
+    convertToTable(); //creates grid with new vacant cell ratio
+    populateGrid(); //populates those cells with id tags
+    colorCells(); //colors in the appropriate id tags
 });
 
 //reads in the population split input and colors appropriate cells
@@ -37,9 +37,9 @@ let popSplit = 0.5;
 let input4 = document.querySelector("#popRatio");
 input4.addEventListener("input", () => {
     popSplit = input4.value;
-    convertToTable();
-    populateGrid();
-    colorCells();
+    convertToTable(); //creates grid with new population split ratio
+    populateGrid(); //populates grid with appropriate tags
+    colorCells(); //colors each cell accordingly
 });
 
 //reads in the population X color and changes color of pop X
@@ -47,8 +47,7 @@ let popXColor = "#006EFF";
 let input5 = document.querySelector("#popXcolor");
 input5.addEventListener("input", () => {
     popXColor = input5.value;
-    //convertToTable();
-    colorCells();
+    colorCells(); //changes color of cell with tag "1" based on user input
 });
 
 //reads in the population Y color and changes color of pop Y
@@ -56,13 +55,13 @@ let popYColor = "#FF7B00";
 let input6 = document.querySelector("#popYcolor");
 input6.addEventListener("input", () => {
     popYColor = input6.value;
-    //convertToTable();
-    colorCells();
+    colorCells(); //changes color of cell with tag "2" based on user input
 
 });
 
 /**
- * 
+ * Converts the given javascript grid into an HTML table.
+ * Attaches a "td" tag to each cells to be able to set id when populating the cells
  */
 let grid = new Array(dimension); 
 let list = new Array(); //cells with no content
@@ -88,7 +87,7 @@ function convertToTable() {
 convertToTable();
 
 /**
- * 
+ * Looks through the grid and add a #0, #1, or #2 tag to populate the grid
  */
 function populateGrid() {
     let vacantNumCells = parseInt((dimension*dimension)*vacantCells);
@@ -101,7 +100,6 @@ function populateGrid() {
         let x = listItem[0];
         let y = listItem[1];
         grid[x][y].id = "0";
-        //grid[x][y].style.backgroundColor = "#FFFF";
         list.splice(listItemNum,1);
     }
     //populating with pop one
@@ -111,7 +109,6 @@ function populateGrid() {
         let x = listItem[0];
         let y = listItem[1];
         grid[x][y].id = "1";
-        //grid[x][y].style.backgroundColor = popXColor;
         list.splice(listItemNum,1);
     }
     //populating with pop two
@@ -127,7 +124,7 @@ function populateGrid() {
 populateGrid();
 
 /**
- * 
+ * Looks through the grid and colors each cell based on the given id tag
  */
 function colorCells() {
     for (let i = 0; i < grid.length; i++) {
