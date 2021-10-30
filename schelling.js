@@ -67,6 +67,14 @@ randomize.addEventListener("click", () => {
     colorCells();
 });
 
+let run = document.querySelector("#runstop");
+run.addEventListener("click", () => {
+    convertToTable();
+    populateGrid();
+    colorCells();
+    simulation();
+});
+
 /**
  * Converts the given javascript grid into an HTML table.
  * Attaches a "td" tag to each cells to be able to set id when populating the cells
@@ -151,3 +159,18 @@ function colorCells() {
 }
 
 colorCells();
+
+//let whiteCells = new Array();
+function simulation() {
+    let whiteCells = new Array();
+    for(let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j].id == "0") {
+                whiteCells.push(grid[i][j]);
+            }
+        }
+    }
+    console.log(whiteCells);
+}
+
+simulation();
