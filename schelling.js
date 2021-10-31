@@ -69,9 +69,6 @@ randomize.addEventListener("click", () => {
 
 let run = document.querySelector("#runstop");
 run.addEventListener("click", () => {
-    convertToTable();
-    populateGrid();
-    colorCells();
     neighborhoods();
     simulation();
 });
@@ -200,11 +197,12 @@ colorCells();
          console.log("Cell does not exist");
      }
  }
- 
- neighborhoods();
 
+/**
+ * Checks the cells in the grid to make sure each one is satisfied and moves cells accordingly
+ */
 async function simulation() {
-    let whiteCells = new Array();
+    let whiteCells = new Array(); //holds all of the vacant cells
     await new Promise((resolve) =>
         setTimeout(() => {
             resolve(); // do nothing after waiting 100 ms, just alert the calling thread
@@ -217,18 +215,27 @@ async function simulation() {
             }
         }
     }
-    //checks to see if cell is satisfied, if not then it is moved to a random locaiton and that cell is now vacant
+    //checks to see if the cell is satisfied, if not then it is moved to a random locaiton and that cell is now vacant
     let randomVacantCell = Math.floor(Math.random()*(whiteCells.length));
+    let generationCount = 0;
     for (let k = 0; k < grid.length; k++) {
         for (let l = 0; l < grid[k].length; l++ ) {
             if (!((neighborhood/8) >= similarityThreshhold)) {
                 grid[k][l] = whiteCells[randomVacantCell];
                 whiteCells.splice(randomVacantCell,1);
                 whiteCells.push(grid[k][l]);
+                generationCount += 1;
             }
         }
-
     }
+    //checks to see if any moves were made and updates the generation on the HTML page
+    if (generationCount > 0) {
+        let generation = document.getElementsByName("Generations: 0");
+        generation.innerHTML = "Generation:" + generationCount;
+    }
+    convertToTable();
+    populateGrid();
+    colorCells();
 }
 
 simulation();
