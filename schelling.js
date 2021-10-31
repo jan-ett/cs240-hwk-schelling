@@ -73,6 +73,7 @@ run.addEventListener("click", () => {
     populateGrid();
     colorCells();
     simulation();
+    neighborhoods();
 });
 
 /**
@@ -171,6 +172,33 @@ function simulation() {
         }
     }
     console.log(whiteCells);
+    let similarCells = 0;
 }
 
 simulation();
+
+let neighborhood = new Array();
+function neighborhoods() {
+    try {
+        for(let i = 0; i < grid.length; i++) {
+            for(let j = 0; j < grid[j].length; j++) {
+                if(grid[i][j].id != "0") {
+                    neighborhood.push(grid[i-1][j]);
+                    neighborhood.push(grid[i-1][j+1]);
+                    neighborhood.push(grid[i][j+1]);
+                    neighborhood.push(grid[i+1][j+1]);
+                    neighborhood.push(grid[i+1][j]);
+                    neighborhood.push(grid[i+1][j-1]);
+                    neighborhood.push(grid[i][j-1]);
+                    neighborhood.push(grid[i-1][j-1]);
+                }
+            }
+        }
+        console.log(neighborhood);
+    }
+    catch (e) {
+        console.log("Cell does not exist");
+    }
+}
+
+neighborhoods();
