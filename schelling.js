@@ -72,8 +72,8 @@ run.addEventListener("click", () => {
     convertToTable();
     populateGrid();
     colorCells();
-    simulation();
     neighborhoods();
+    simulation();
 });
 
 /**
@@ -161,9 +161,55 @@ function colorCells() {
 
 colorCells();
 
-//let whiteCells = new Array();
-function simulation() {
+/**
+ * Create a counter with the number of cells that have the same id as the current cell
+ */
+ let neighborhood = 0;
+ function neighborhoods() {
+     try {
+         for(let i = 0; i < grid.length; i++) {
+             for(let j = 0; j < grid[j].length; j++) {
+                 if(grid[i][j].id == grid[i-1][j].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i-1][j+1].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i][j+1].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i+1][j+1].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i+1][j].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i+1][j-1].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i][j-1].id) {
+                     neighborhood += 1;
+                 }
+                 else if (grid[i][j].id == grid[i-1][j-1].id) {
+                     neighborhood += 1;
+                 }
+             }
+         }
+     }
+     catch (e) {
+         console.log("Cell does not exist");
+     }
+ }
+ 
+ neighborhoods();
+
+async function simulation() {
     let whiteCells = new Array();
+    await new Promise((resolve) =>
+        setTimeout(() => {
+            resolve(); // do nothing after waiting 100 ms, just alert the calling thread
+        }, 100)
+    );
     for(let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j].id == "0") {
@@ -171,34 +217,17 @@ function simulation() {
             }
         }
     }
-    console.log(whiteCells);
-    let similarCells = 0;
+    //checks to see if cell is satisfied, if not then it is moved to a random locaiton and that cell is now vacant
+    for (let k = 0; k < whiteCells.length; k++) {
+        for (let l = 0; l < grid.length; l++ ) {
+            if (!((neighborhood/8) >= similarityThreshhold)) {
+                grid[k][l] = whiteCells[k];
+                whiteCells.splice(k,1);
+                whiteCells.push(grid[k][l]);
+            }
+        }
+
+    }
 }
 
 simulation();
-
-let neighborhood = new Array();
-function neighborhoods() {
-    try {
-        for(let i = 0; i < grid.length; i++) {
-            for(let j = 0; j < grid[j].length; j++) {
-                if(grid[i][j].id != "0") {
-                    neighborhood.push(grid[i-1][j]);
-                    neighborhood.push(grid[i-1][j+1]);
-                    neighborhood.push(grid[i][j+1]);
-                    neighborhood.push(grid[i+1][j+1]);
-                    neighborhood.push(grid[i+1][j]);
-                    neighborhood.push(grid[i+1][j-1]);
-                    neighborhood.push(grid[i][j-1]);
-                    neighborhood.push(grid[i-1][j-1]);
-                }
-            }
-        }
-        console.log(neighborhood);
-    }
-    catch (e) {
-        console.log("Cell does not exist");
-    }
-}
-
-neighborhoods();
