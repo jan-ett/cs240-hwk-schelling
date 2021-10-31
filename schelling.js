@@ -218,11 +218,12 @@ async function simulation() {
         }
     }
     //checks to see if cell is satisfied, if not then it is moved to a random locaiton and that cell is now vacant
-    for (let k = 0; k < whiteCells.length; k++) {
-        for (let l = 0; l < grid.length; l++ ) {
+    let randomVacantCell = Math.floor(Math.random()*(whiteCells.length));
+    for (let k = 0; k < grid.length; k++) {
+        for (let l = 0; l < grid[k].length; l++ ) {
             if (!((neighborhood/8) >= similarityThreshhold)) {
-                grid[k][l] = whiteCells[k];
-                whiteCells.splice(k,1);
+                grid[k][l] = whiteCells[randomVacantCell];
+                whiteCells.splice(randomVacantCell,1);
                 whiteCells.push(grid[k][l]);
             }
         }
